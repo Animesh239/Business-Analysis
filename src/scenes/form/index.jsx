@@ -8,10 +8,14 @@ import { get, getDatabase, ref, set } from "firebase/database";
 import { useEffect, useState } from "react";
 import { database } from "../../firebase";
 import { tokens } from "../../theme";
+import SubmissionList from "./Data";
 
 const Form = () => {
   const theme = useTheme();
   const [data, setData] = useState([]);
+  const [formSubmissions, setFormSubmissions] = useState([]);
+
+  
   const isNonMobile = useMediaQuery("(min-width:600px)");
   // console.log(countryData);
   const colors = tokens(theme.palette.mode);
@@ -46,6 +50,28 @@ const Form = () => {
     };
 
     fetchCountrydata();
+  }, []);
+
+  useEffect(() => {
+    const auth = getAuth();
+    const database = getDatabase();
+    const user = auth.currentUser;
+
+    if (user) {
+      const userRef = ref(database, "users/" + user.uid + "/formData");
+      get(userRef)
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            const data = snapshot.val();
+            setFormSubmissions((prev) => [...prev, data]);
+          } else {
+            console.log("No data available");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    }
   }, []);
 
   return (
@@ -776,6 +802,8 @@ const Form = () => {
           </form>
         )}
       </Formik>
+      {/* show all form submission data here */}
+      <SubmissionList formSubmissions={formSubmissions} />
     </Box>
   );
 };
