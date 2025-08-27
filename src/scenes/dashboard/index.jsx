@@ -8,3 +8,5 @@ function App() {
 
   return <div>{apiError.message}</div>;
 }
+
+export default Dashboard;
