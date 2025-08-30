@@ -54,15 +54,15 @@ const Login = ({ handleLoginSuccess }) => {
       icon: <AdminPanelSettingsIcon />,
       color: colors.blueAccent[500],
       description: "Business management"
-    },
-    {
-      role: "Admin",
-      email: "subha@gmail.com",
-      password: "12345678",
-      icon: <AdminPanelSettingsIcon />,
-      color: colors.blueAccent[500],
-      description: "Business management"
     }
+    // {
+    //   role: "Admin",
+    //   email: "subha@gmail.com",
+    //   password: "12345678",
+    //   icon: <AdminPanelSettingsIcon />,
+    //   color: colors.blueAccent[500],
+    //   description: "Business management"
+    // }
   ];
 
   const handleCredentialSelect = (credential) => {
